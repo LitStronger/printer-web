@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy"  />
+    <link rel="stylesheet" href="./button.css">
+    <link rel="stylesheet" href="./public/css/layout.css">
+    <link rel="stylesheet" href="./public/css/button.css">
+    <script src="./public/js/timer.js"></script>
+  </head>
+  <body style="margin: 0;padding: 0;cursor: none;">
+    <header class="header"><span>自助打印机</span></header>
+    <div style="background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;align-items: center;justify-content: space-around;flex-wrap: wrap;">
+        <!-- <div id='0' class="button-l button-3d button-primary" >验证码获取</div> -->
+        <div id='0' class="button-l button-3d button-color-1" >验证码获取</div>
+        <div id='1' class="button-l button-3d button-color-2" >随机获取</div>
+        <div id='2' class="button-l button-3d button-color-3">说明书</div>
+        <div id='3' class="button-l button-3d button-color-4">客服电话</div>
+        <!-- <a style="" href="#" class="button button-3d button-primary button-rounded">Check out the new site!</a> -->
+
+
+    </div>
+    <footer class="footer">欢迎使用#自助打印服务#</footer>
+    <!-- <button></button> -->
+    <!-- and Electron <script>document.write(process.versions.electron)</script>. -->
+  </body>
+</html>
+<script>
+document.getElementById('0').addEventListener("click", function(){
+  console.log('click 0')
+  window.location.href = './pages/QRCode.html'
+});
+document.getElementById('1').addEventListener("click", function(){
+  console.log('click 1')
+  window.location.href = './pages/randomGet.html'
+});
+document.getElementById('2').addEventListener("click", function(){
+  console.log('click 2')
+  window.location.href = './pages/specification.html'
+});
+document.getElementById('3').addEventListener("click", function(){
+  console.log('click 3')
+  window.location.href = './pages/telephone.html'
+});
+</script>

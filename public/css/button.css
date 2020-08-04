@@ -1,0 +1,80 @@
+.button-l{
+    width: 38vw;
+    height: 34vh;
+    color: white;
+    font-size: 200%;
+    line-height: 36vh;
+    /* background: #28A3F3; */
+    border-radius: 20px;
+    /* box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);       */
+    cursor: pointer;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-transition-property: all;
+            transition-property: all;
+    -webkit-transition-duration: .2s;
+            transition-duration: .2s;  
+}
+
+/*button-1*/
+.button-color-1{
+    background: #f8c947;
+    -webkit-box-shadow: 0 7px 0 #f8c947, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 5px 2px #f8c947, 0px 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-1:hover{
+    background: #fdbd0e;
+    -webkit-box-shadow: 0 7px 0 #fdbd0e, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 7px 0 #fdbd0e, 0 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-1:active{
+    background: #fdbd0e;
+}
+/*button-2*/
+.button-color-2{
+    background: #A3D341;
+    -webkit-box-shadow: 0 7px 0 #A3D341, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 5px 2px #A3D341, 0px 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-2:hover{
+    background: #91cf15;
+    -webkit-box-shadow: 0 7px 0 #91cf15, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 7px 0 #91cf15, 0 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-2:active{
+    background: #91cf15;
+}
+/*button-3*/
+.button-color-3{
+    background: #C996FD;
+    -webkit-box-shadow: 0 7px 0 #C996FD, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 5px 2px #C996FD, 0px 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-3:hover{
+    background: #ae5dff;
+    -webkit-box-shadow: 0 7px 0 #ae5dff, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 7px 0 #ae5dff, 0 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-3:active{
+    background: #ae5dff;
+}
+
+/*button-4*/
+.button-color-4{
+    background: #4CA9F5;
+    -webkit-box-shadow: 0 7px 0 #4CA9F5, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 5px 2px #4CA9F5, 0px 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-4:hover{
+    background: #1a94f8;
+    -webkit-box-shadow: 0 7px 0 #1a94f8, 0 8px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 7px 0 #1a94f8, 0 8px 3px rgba(0, 0, 0, 0.3); 
+}
+.button-color-4:active{
+    background: #1a94f8;
+}
+
+
+

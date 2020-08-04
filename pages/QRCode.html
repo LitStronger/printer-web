@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <title>Document</title>
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="../button.css">
+    <link rel="stylesheet" href="../public/css/layout.css">
+
+</head>
+<body>
+    <header class="header"><span>提取码</span></header>
+    <div style="background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;">
+        <div style="width: 100%;position: absolute;">
+            <div style="width: 50%;height:40vh;text-align: center;line-height: 40vh;margin: 6vh auto auto auto;" class="content">
+                <h1 id="tip" style="color: #17bbfc;">提示: 请刷二维码!</h1>
+            </div>
+            <br><br>
+        <!-- <button onclick="scan()">重扫</button> -->
+            <div style="width: 50%;text-align: center;margin: 0vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;">
+
+                <a style="margin: 0 auto;width: 20vw;"onclick="scan()" class="button button-3d button-primary button-rounded">重扫</a>
+                <a style="margin: 0 auto;width: 20vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
+            </div>
+        </div>
+        
+    </div>
+
+    <footer class="footer"></footer>
+</body>
+</html>
+<script>
+    document.onkeydown = function () {
+        if(document.onQRcodeInput){
+            let key=window.event&&window.event.key;
+            document.onQRcodeInput(key);
+        }
+    }
+
+    function readQRCode(){
+        return new Promise((resolve, reject) =>{
+            let code = ""
+            document.onQRcodeInput = function (key) {
+                if(code.length > 200){
+                    document.onQRcodeInput = null
+                    reject(code)
+                }
+                if(key != "Enter"){
+                    if(key.length == 1)
+                        code += key
+                }
+                else{
+                    document.onQRcodeInput = null
+                    resolve(code)
+                }
+            }
+        })
+    }
+     
+</script>
+<script>
+    function scan(){        
+        document.getElementById('tip').innerHTML = "提示: 请刷二维码!"
+        readQRCode()
+        .then((code) => {
+            setTimeout(()=>{
+                console.log(code)
+                document.getElementById('tip').innerHTML = "提示: 扫码成功"
+            },1)
+        });
+    }
+
+    scan()
+</script>
