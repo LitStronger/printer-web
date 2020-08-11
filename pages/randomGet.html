@@ -6,25 +6,50 @@
     <title>Document</title>
     <link rel="stylesheet" href="../button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
+    <style>
+        .img-wrap{
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 
 </head>
 <body>
     <header class="header"><span>随机获取</span></header>
     <div style="background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;">
         <div style="width: 100%;position: absolute;">
-            <div style="width: 70%;height:78vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;" class="content">
-                <div style="background: yellow;width: 40%;height: 50vh;"><img src="" alt=""></div>
-                <div style="background: yellow;width: 40%;height: 50vh;"><img src="" alt=""></div>
-                <a style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">打印</a>
-                <a style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">换一张</a>
-                <a style="margin: 0 auto;width: 15vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
-
+            <div style="width: 70%;height:62vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;" class="content">
+                <div style="background: rgb(245, 243, 243);width: 40%;height: 50vh;"><img name='front' src="https://cn.vuejs.org/images/logo.png" alt=""></div>
+                <div style="background: rgb(245, 243, 243);width: 40%;height: 50vh;"><img name='back' src="" alt=""></div>
             </div>
             <br><br>
+            <div style="width: 60%;text-align: center;margin: 0vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;">
+                <a id='0' style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">打印</a>
+                <a id='1' style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">换一张</a>
+                <a id='2' style="margin: 0 auto;width: 15vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
+            </div>
         </div>
     
     
     </div>
     <footer class="footer"></footer>
 </body>
+<script>
+    document.getElementById('0').onclick = function(){
+        console.log("print")
+    }
+    document.getElementById('1').onclick = function(){
+        console.log("exange")
+        let front = document.getElementsByName('front')[0]
+        front.src = ''
+        let back = document.getElementsByName('back')[0]
+        back.src = 'https://cn.vuejs.org/images/logo.png'
+        console.log(back)
+    }
+
+
+
+</script>
 </html>
