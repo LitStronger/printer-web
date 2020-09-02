@@ -28,6 +28,10 @@
   </body>
 </html>
 <script>
+  const ipcRenderer = require('electron').ipcRenderer;
+  console.log("ipc")
+  ipcRenderer.send('print', {data: "test from index"})
+
 document.getElementById('0').addEventListener("click", function(){
   console.log('click 0')
   window.location.href = './pages/QRCode.html'

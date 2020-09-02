@@ -1,55 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <title>Document</title>
     <link rel="stylesheet" href="../button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
+    <script src="../public/js/jquery-3.5.1.min.js"></script>
     <style>
-        .img-wrap{
+        .layout-center{
+            background-color: white;
+            height:86vh;
+            width: 90vw;
+            margin: 0vh auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
         }
-        img{
+        .img-wrap {
+            background: rgb(245, 243, 243);width: 16vw;height: 24vw;
+        }
+
+        img {
             width: 100%;
             height: 100%;
+        }
+        .buttons-wrap{
+            width: 50%;
+            text-align: center;
+            margin: 0vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
         }
     </style>
 
 </head>
+
 <body>
     <header class="header"><span>随机获取</span></header>
-    <div style="background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;">
+    <div class="layout-center">
         <div style="width: 100%;position: absolute;">
-            <div style="width: 70%;height:62vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;" class="content">
-                <div style="background: rgb(245, 243, 243);width: 40%;height: 50vh;"><img name='front' src="https://cn.vuejs.org/images/logo.png" alt=""></div>
-                <div style="background: rgb(245, 243, 243);width: 40%;height: 50vh;"><img name='back' src="" alt=""></div>
+            <div style="width: 55%;height:65vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;"
+                class="content">
+                <div class="img-wrap">
+                    <img name='front' src="" alt=""></div>
+                <div class="img-wrap">
+                    <img name='back' src="" alt="">
+                </div>
             </div>
             <br><br>
-            <div style="width: 60%;text-align: center;margin: 0vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;">
-                <a id='0' style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">打印</a>
-                <a id='1' style="margin: 0 auto;width: 15vw;" href="#" class="button button-3d button-primary button-rounded">换一张</a>
-                <a id='2' style="margin: 0 auto;width: 15vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
+            <div class="buttons-wrap">
+                <a id='0' style="margin: 0 auto;width: 15vw;" href="#"
+                    class="button button-3d button-primary button-rounded">打印</a>
+                <a id='1' style="margin: 0 auto;width: 15vw;" href="#"
+                    class="button button-3d button-primary button-rounded">换一张</a>
+                <a id='2' style="margin: 0 auto;width: 15vw;" href="../index.html"
+                    class="button button-3d button-primary button-rounded">返回</a>
             </div>
         </div>
-    
-    
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+
+
+
     </div>
     <footer class="footer"></footer>
 </body>
 <script>
-    document.getElementById('0').onclick = function(){
+    var checkedImg = ''
+    var backCover = ''
+
+    function getImg(){
+        // $.get({
+        //     url: 'http://129.204.241.109:8080/share',
+        //     data: {
+        //         code: data[3]
+        //     },
+        //     success: function (res) {
+        //         checkedImg = res.data.raw.checkedImg
+        //         backCover = res.data.raw.backCover
+        //         console.log("checkedImg", res.data.raw.checkedImg)
+        //         console.log("backCover", res.data.raw.backCover)
+        //     },
+        //     error: function (err) {
+        //         console.log(err)
+        //     }
+        // })
+    }
+    // getImg()
+
+    document.getElementById('0').onclick = function () {
+        window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
+
         console.log("print")
     }
-    document.getElementById('1').onclick = function(){
+    document.getElementById('1').onclick = function () {
         console.log("exange")
+
+        // getImg()
+
         let front = document.getElementsByName('front')[0]
         front.src = ''
         let back = document.getElementsByName('back')[0]
         back.src = 'https://cn.vuejs.org/images/logo.png'
         console.log(back)
     }
+    
+
+
+
 
 
 
 </script>
+
 </html>

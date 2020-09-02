@@ -2,14 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <title>Document</title>
     <style>
 
     </style>
     <link rel="stylesheet" href="../button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
-
 </head>
 <body>
     <header class="header"><span>提取码</span></header>
@@ -30,6 +28,10 @@
     </div>
 
     <footer class="footer"></footer>
+    <!--解决脚本标签加载了正确的路径，也找不到jQuery插件的问题-->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="../public/js/jquery-3.5.1.min.js"></script>
+    <script>if (window.module) module = window.module;</script>
 </body>
 </html>
 <script>
@@ -45,6 +47,7 @@
             let code = ""
             document.onQRcodeInput = function (key) {
                 if(code.length > 200){
+                    console.log("reject ")
                     document.onQRcodeInput = null
                     reject(code)
                 }
@@ -53,6 +56,7 @@
                         code += key
                 }
                 else{
+                    console.log("end ")
                     document.onQRcodeInput = null
                     resolve(code)
                 }
@@ -67,8 +71,27 @@
         readQRCode()
         .then((code) => {
             setTimeout(()=>{
-                console.log(code)
-                document.getElementById('tip').innerHTML = "提示: 扫码成功"
+                console.log( code)
+                let data = code.split('"')
+                document.getElementById('tip').innerHTML = "提示: 扫码成功, 请稍等..."
+
+                // 129.204.241.109:8080/share?code=60b9f17a6de138a46c26c61b10c05765
+                $.get({
+                    url: 'http://129.204.241.109:8080/share',
+                    data: {
+                        code: data[3]
+                    },
+                    success: function(res){
+                        let checkedImg = res.data.raw.checkedImg
+                        let backCover = res.data.raw.backCover
+                        console.log("checkedImg", res.data.raw.checkedImg)
+                        console.log("backCover", res.data.raw.backCover)
+                        window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
+                    },
+                    error: function(err){
+                        console.log(err)
+                    }
+                })
             },1)
         });
     }
