@@ -88,7 +88,7 @@
             <div class="buttons-wrap">
                 <a id='0' href="#" class="button button-3d button-primary button-rounded my-button">打印第1面</a>
                 <a id='1' href="#" class="button button-3d button-primary button-rounded my-button">打印第2面</a>
-                <a id='2' href="../index.html" class="button button-3d button-primary button-rounded my-button">返回</a>
+                <a id='2' href="#" class="button button-3d button-primary button-rounded my-button">返回</a>
             </div>
         </div>
 
@@ -106,48 +106,52 @@
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return (r[2]); return null;
     }
-    // console.log(window.location)
     let checkedImg = GetQueryString('checkedImg')
     let backCover = GetQueryString('backCover')
-    // console.log(checkedImg,backCover)
     let front = document.getElementsByName('front')[0]
-    front.src = checkedImg
     let back = document.getElementsByName('back')[0]
-    // back.src = backCover
+    let isPrinting = false
+
+    if(!!checkedImg)
+        front.src = checkedImg
+    if(!!backCover)
+        back.src = backCover
 
     document.getElementById('0').onclick = function () {
         // alert('开始打印第1面')
-        if (!checkedImg && !backCover) {
-            alert("未获取到图片，请重试")
-            return
+        if (!checkedImg) {
+            alert("未获取到第 1 张图片，请重试")
+            return;
         }
-        else {
-            if (!!checkedImg) {
-                Fetch(checkedImg)
-            }
-            if (!!backCover) {
-                // saveBlob(checkedImg)
-            }
+        if(isPrinting){
+            alert("打印中，请勿操作！")
+            return;
         }
+        isPrinting = true
+        Fetch(checkedImg)
     }
     document.getElementById('1').onclick = function () {
         // alert('开始打印第2面')
-        if (!checkedImg && !backCover) {
-            alert("未获取到图片，请重试")
-            return
+        if (!backCover) {
+            alert("未获取到第 2 张图片，请重试")
+            return;
         }
-        else {
-            if (!!checkedImg) {
-                // Fetch(checkedImg)
-            }
-            if (!!backCover) {
-                Fetch(backCover)
-            }
+        if(isPrinting){
+            alert("打印中，请勿操作！")
+            return;
         }
+        isPrinting = true
+        Fetch(backCover)
+    }
+    document.getElementById('2').onclick = function () {
+        if(isPrinting){
+            alert("打印中，请勿操作！")
+            return;
+        }
+        location.href = "../index.html"
     }
 
     function Fetch(checkedImg) {
-        console.log("Fetch")
         var myInit = {
             method: 'GET',
             responseType: 'arraybuffer',
@@ -190,19 +194,37 @@
             function go(){
                 printer.execute("Get-Job-Attributes",msgx,function(err,res){
                     console.log(res);
-                    let rtString =  res['job-attributes-tag']['job-printer-state-message'] //real time string data
-                    console.log('string',rtString)
-                    if(!!rtString){
-                        let rtNum =  rtString.split(' ')[3];
-                        console.log('num', rtNum)
+                    let rtNum = res['job-attributes-tag']['job-media-progress']
+                    let state = res['job-attributes-tag']['job-state']
+                    let domNum = document.getElementsByClassName('state-num')[0]
 
-                        let domNum = document.getElementsByClassName('state-num')[0]
-                        if(rtNum == '100%') {
-                            domNum.innerHTML = '打印完毕!'
-                            return;
+                    if(rtNum >= 99 || rtNum == undefined) {
+                        if(state == 'completed'){
+                            domNum.innerHTML = '打印完毕！'
+                            isPrinting = false
+                            return 'ok';
                         }
-                        domNum.innerHTML = rtNum
+                        else{
+                            domNum.innerHTML = '处理中,请稍等..'
+                        } 
                     }
+                    else if(!!rtNum){
+                        domNum.innerHTML = rtNum + '%'
+                    }
+
+                    // let rtString =  res['job-attributes-tag']['job-printer-state-message'] //real time string data
+                    // console.log('string',rtString)
+                    // if(!!rtString){
+                    //     let rtNum =  rtString.split(' ')[3];
+                    //     console.log('num', rtNum)
+
+                    //     let domNum = document.getElementsByClassName('state-num')[0]
+                    //     if(rtNum == '100%' || rtNum == undefined) {
+                    //         domNum.innerHTML = '处理中，请稍等..'
+                    //         return;
+                    //     }
+                    //     domNum.innerHTML = rtNum
+                    // }
                     setTimeout(go,1000);	
                 });
             }
