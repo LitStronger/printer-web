@@ -45,8 +45,13 @@
             margin-top: 20%;
         }
         .state-num{
-            margin-top: 20%;
-            font-size: 60px;
+            margin-top: 15%;
+            font-size: 36px;
+            color: #66ccff;
+        }
+        .state-tip{
+            margin-top: 15%;
+            font-size: 36px;
             color: #66ccff;
         }
         .buttons-wrap {
@@ -74,20 +79,22 @@
             <div style="width: 60%;height:62vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;"
                 class="content">
                 <div class="img-wrap">
-                    <img name='front' src="" alt="">
+                    <img name='back' src="" alt="">
                 </div>
                 <div class="img-wrap">
-                    <img name='back' src="" alt="">
+                    <img name='front' src="" alt="">
                 </div>
                 <div class="state-wrap">
                     <div class="state" style="width: 16vw;text-align: left;color: #5dbcfc;">&nbsp&nbsp打印进度 :</div>
                     <div class="state-num" style="width: 16vw;">0%</div>
+                    <div style="width: 16vw;text-align: left;color: #5dbcfc;margin-top: 15%;">&nbsp&nbsp提示 : </div>
+                    <div class="state-tip" style="width: 16vw;"></div>
                 </div>
             </div>
             <br><br>
             <div class="buttons-wrap">
-                <a id='0' href="#" class="button button-3d button-primary button-rounded my-button">打印第1面</a>
-                <a id='1' href="#" class="button button-3d button-primary button-rounded my-button">打印第2面</a>
+                <a id='0' href="#" class="button button-3d button-primary button-rounded my-button">开始打印</a>
+                <!-- <a id='1' href="#" class="button button-3d button-primary button-rounded my-button">打印第2面</a> -->
                 <a id='2' href="#" class="button button-3d button-primary button-rounded my-button">返回</a>
             </div>
         </div>
@@ -96,8 +103,7 @@
     </div>
     <footer class="footer"></footer>
 </body>
-<!-- <script src="../public/js/require.js"></script> -->
-<!-- <script src="../public/js/print.js"></script> -->
+
 <script src="../renderer.js"></script>
 
 <script>
@@ -119,30 +125,36 @@
 
     document.getElementById('0').onclick = function () {
         // alert('开始打印第1面')
-        if (!checkedImg) {
-            alert("未获取到第 1 张图片，请重试")
-            return;
-        }
         if(isPrinting){
             alert("打印中，请勿操作！")
             return;
         }
-        isPrinting = true
-        Fetch(checkedImg)
-    }
-    document.getElementById('1').onclick = function () {
-        // alert('开始打印第2面')
-        if (!backCover) {
-            alert("未获取到第 2 张图片，请重试")
+        if (!checkedImg && !backCover) {
+            alert("未获取到图片，请返回重试")
             return;
         }
-        if(isPrinting){
-            alert("打印中，请勿操作！")
-            return;
+        if(backCover){
+            isPrinting = true
+            Fetch(backCover)
         }
-        isPrinting = true
-        Fetch(backCover)
+        else if(checkedImg){
+            isPrinting = true
+            Fetch(checkedImg)
+        }
     }
+    // document.getElementById('1').onclick = function () {
+    //     // alert('开始打印第2面')
+    //     if (!backCover) {
+    //         alert("未获取到第 2 张图片，请重试")
+    //         return;
+    //     }
+    //     if(isPrinting){
+    //         alert("打印中，请勿操作！")
+    //         return;
+    //     }
+    //     isPrinting = true
+    //     Fetch(backCover)
+    // }
     document.getElementById('2').onclick = function () {
         if(isPrinting){
             alert("打印中，请勿操作！")
@@ -155,9 +167,6 @@
         var myInit = {
             method: 'GET',
             responseType: 'arraybuffer',
-            // headers: {
-            //     'Content-Type': 'image/jpeg'
-            // },
             mode: 'cors',
             cache: 'default'
         };
@@ -197,11 +206,19 @@
                     let rtNum = res['job-attributes-tag']['job-media-progress']
                     let state = res['job-attributes-tag']['job-state']
                     let domNum = document.getElementsByClassName('state-num')[0]
+                    let domTip = document.getElementsByClassName('state-tip')[0]
 
                     if(rtNum >= 99 || rtNum == undefined) {
                         if(state == 'completed'){
                             domNum.innerHTML = '打印完毕！'
                             isPrinting = false
+                            if(!!backCover){
+                                backCover = ''
+                                domTip.innerHTML = '请翻页'
+                            }
+                            else if(!!checkedImg){
+                                checkedImg = ''
+                            }
                             return 'ok';
                         }
                         else{

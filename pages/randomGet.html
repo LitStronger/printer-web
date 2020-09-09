@@ -52,20 +52,14 @@
             </div>
             <br><br>
             <div class="buttons-wrap">
-                <a id='0' style="margin: 0 auto;width: 15vw;" href="#"
-                    class="button button-3d button-primary button-rounded">打印</a>
-                <a id='1' style="margin: 0 auto;width: 15vw;" href="#"
-                    class="button button-3d button-primary button-rounded">换一张</a>
-                <a id='2' style="margin: 0 auto;width: 15vw;" href="../index.html"
+                <a id='0' style="margin: 0 auto;width: 13vw;" href="#"
+                    class="button button-3d button-primary button-rounded">前往打印</a>
+                <a id='1' style="margin: 0 auto;width: 13vw;" href="#"
+                    class="button button-3d button-primary button-rounded">换一批</a>
+                <a id='2' style="margin: 0 auto;width: 13vw;" href="../index.html"
                     class="button button-3d button-primary button-rounded">返回</a>
             </div>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
 
 
 
@@ -73,43 +67,44 @@
     <footer class="footer"></footer>
 </body>
 <script>
-    var checkedImg = ''
-    var backCover = ''
+    var checkedImg = '../public/img/front-2.jpg'
+    var backCover = '../public/img/back-2.jpg'
 
     function getImg(){
-        // $.get({
-        //     url: 'http://129.204.241.109:8080/share',
-        //     data: {
-        //         code: data[3]
-        //     },
-        //     success: function (res) {
-        //         checkedImg = res.data.raw.checkedImg
-        //         backCover = res.data.raw.backCover
-        //         console.log("checkedImg", res.data.raw.checkedImg)
-        //         console.log("backCover", res.data.raw.backCover)
-        //     },
-        //     error: function (err) {
-        //         console.log(err)
-        //     }
-        // })
+        $.get({
+            url: 'http://129.204.241.109:8080/randomGet',
+            // data: {
+            //     code: data[3]
+            // },
+            success: function (res) {
+                checkedImg = res.checkedImg
+                backCover = res.backCover
+                console.log("checkedImg", res.checkedImg)
+                console.log("backCover", res.backCover)
+                let front = document.getElementsByName('front')[0]
+                let back = document.getElementsByName('back')[0]
+
+                front.src = checkedImg
+                back.src = backCover
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
     }
-    // getImg()
+    getImg()
 
     document.getElementById('0').onclick = function () {
+        if(!checkedImg && !backCover){
+            alert('未获取到图片,请重试')
+            return;
+        }
         window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
-
-        console.log("print")
     }
     document.getElementById('1').onclick = function () {
         console.log("exange")
 
-        // getImg()
-
-        let front = document.getElementsByName('front')[0]
-        front.src = ''
-        let back = document.getElementsByName('back')[0]
-        back.src = 'https://cn.vuejs.org/images/logo.png'
-        console.log(back)
+        getImg()
     }
     
 

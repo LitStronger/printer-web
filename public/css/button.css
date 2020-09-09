@@ -10,7 +10,7 @@
     cursor: pointer;
     text-align: center;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+        -moz-box-sizing: border-box;
             box-sizing: border-box;
     -webkit-transition-property: all;
             transition-property: all;
