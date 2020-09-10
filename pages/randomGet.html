@@ -102,13 +102,23 @@
                 front.src = checkedImg
                 back.src = backCover
 
-                const viewer = new Viewer(document.getElementsByName('front')[0], {
-                toolbar: false,
-                zoomable: false,
-                navbar: false,
-                viewed() {
-                    viewer.zoomTo(1);
-                },
+                const viewerFront = new Viewer(document.getElementsByName('front')[0], {
+                    toolbar: false,
+                    zoomable: false,
+                    navbar: false,
+                    movable:false,
+                    viewed() {
+                        viewerFront.zoomTo(0);
+                    },
+                });
+                const viewerBack = new Viewer(document.getElementsByName('back')[0], {
+                    toolbar: false,
+                    zoomable: false,
+                    navbar: false,
+                    movable:false,
+                    viewed() {
+                        viewerBack.zoomTo(0);
+                    },
                 });
             },
             error: function (err) {
