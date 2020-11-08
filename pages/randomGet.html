@@ -6,29 +6,35 @@
     <title>Document</title>
     <link rel="stylesheet" href="../public/css/button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
-    <script src="../public/js/jquery-3.5.1.min.js"></script>
-
-    <link  href="../public/css/Viewer.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/alert.css">
+    <link rel="stylesheet" href="../public/css/Viewer.min.css">
     <script src="../public/js/Viewer.min.js"></script>
+    <script src="../public/js/alert.js"></script>
+    <script src="../public/js/timer.js"></script>
+
     <style>
-        .layout-center{
+        .layout-center {
             background-color: white;
-            height:86vh;
+            height: 86vh;
             width: 90vw;
             margin: 0vh auto;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
         }
+
         .img-wrap {
-            background: rgb(245, 243, 243);width: 16vw;height: 24vw;
+            background: rgb(245, 243, 243);
+            width: 16vw;
+            height: 24vw;
         }
 
         img {
             width: 100%;
             height: 100%;
         }
-        .buttons-wrap{
+
+        .buttons-wrap {
             width: 50%;
             text-align: center;
             margin: 0vh auto auto auto;
@@ -63,36 +69,37 @@
                     class="button button-3d button-primary button-rounded">返回</a>
             </div>
         </div>
-
-
-
     </div>
     <footer class="footer"></footer>
     <!--解决脚本标签加载了正确的路径，也找不到jQuery插件的问题-->
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <script src="../public/js/jquery-3.5.1.min.js"></script>
     <script>if (window.module) module = window.module;</script>
 </body>
 <script>
-    var checkedImg = '../public/img/front-2.jpg'
-    var backCover = '../public/img/back-2.jpg'
+    var checkedImg = ''
+    var backCover = ''
 
     getImg()
 
     document.getElementById('0').onclick = function () {
-        if(!checkedImg && !backCover){
-            alert('未获取到图片,请重试')
+        if (!checkedImg || !backCover) {
+            // alert('未获取到图片,请重试')
+            myAlert('未获取到图片,请重试')
             return;
         }
         window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
     }
     document.getElementById('1').onclick = function () {
         console.log("exange")
-
         getImg()
     }
 
-    function getImg(){
+    function getImg() {
+        let front = document.getElementsByName('front')[0]
+        let back = document.getElementsByName('back')[0]
+        front.src = '../public/img/loading.gif'
+        back.src = '../public/img/loading.gif'
         $.get({
             url: 'http://129.204.241.109:8080/randomGet',
             success: function (res) {
@@ -100,8 +107,6 @@
                 backCover = res.backCover
                 console.log("checkedImg", res.checkedImg)
                 console.log("backCover", res.backCover)
-                let front = document.getElementsByName('front')[0]
-                let back = document.getElementsByName('back')[0]
 
                 front.src = checkedImg
                 back.src = backCover
@@ -110,7 +115,7 @@
                     toolbar: false,
                     zoomable: false,
                     navbar: false,
-                    movable:false,
+                    movable: false,
                     viewed() {
                         viewerFront.zoomTo(0);
                     },
@@ -119,7 +124,7 @@
                     toolbar: false,
                     zoomable: false,
                     navbar: false,
-                    movable:false,
+                    movable: false,
                     viewed() {
                         viewerBack.zoomTo(0);
                     },
@@ -127,8 +132,11 @@
             },
             error: function (err) {
                 console.log(err)
+                front.src = '../public/img/error.png'
+                back.src = '../public/img/error.png'
             }
         })
     }
 </script>
+
 </html>

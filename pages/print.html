@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>Print</title>
     <link rel="stylesheet" href="../public/css/button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
+    <link href="../public/css/Viewer.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/alert.css">
 
-    <link  href="../public/css/Viewer.min.css" rel="stylesheet">
     <script src="../public/js/Viewer.min.js"></script>
+    <script src="../public/js/alert.js"></script>
+    <script src="../public/js/timer.js"></script>
+
     <style>
         .layout-center {
             background-color: white;
@@ -21,7 +24,6 @@
         }
 
         .img-wrap {
-            /* background: rgb(245, 243, 243); */
             width: 16vw;
             height: 24vw;
         }
@@ -30,31 +32,30 @@
             width: 100%;
             height: 100%;
         }
-        .state-wrap{
-            /* background: rgb(245, 243, 243); */
+
+        .state-wrap {
             width: 15vw;
             height: 24vw;
             border-radius: 10%;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-            /* display: flex; */
-            /* justify-content: center; */
-            /* align-items: center; */
-            /* flex-wrap: wrap; */
         }
 
-        .state{
+        .state {
             margin-top: 10%;
         }
-        .state-num{
+
+        .state-num {
             margin-top: 15%;
             font-size: 36px;
             color: #66ccff;
         }
-        .state-tip{
+
+        .state-tip {
             margin-top: 15%;
             font-size: 36px;
             color: #66ccff;
         }
+
         .buttons-wrap {
             width: 50%;
             text-align: center;
@@ -99,8 +100,6 @@
                 <a id='2' href="#" class="button button-3d button-primary button-rounded my-button">返回</a>
             </div>
         </div>
-
-
     </div>
     <footer class="footer"></footer>
 </body>
@@ -119,46 +118,34 @@
     let back = document.getElementsByName('back')[0]
     let isPrinting = false
 
-    if(!!checkedImg)
+    if (!!checkedImg)
         front.src = checkedImg
-    if(!!backCover)
+    if (!!backCover)
         back.src = backCover
 
     document.getElementById('0').onclick = function () {
         // alert('开始打印第1面')
-        if(isPrinting){
-            alert("打印中，请勿操作！")
+        if (isPrinting) {
+            myAlert("打印中，请勿操作！")
             return;
         }
         if (!checkedImg && !backCover) {
-            alert("未获取到图片，请返回重试")
+            myAlert("未获取到图片，请返回重试")
             return;
         }
-        if(backCover){
+        if (backCover) {
             isPrinting = true
             Fetch(backCover)
         }
-        else if(checkedImg){
+        else if (checkedImg) {
             isPrinting = true
             Fetch(checkedImg)
         }
     }
-    // document.getElementById('1').onclick = function () {
-    //     // alert('开始打印第2面')
-    //     if (!backCover) {
-    //         alert("未获取到第 2 张图片，请重试")
-    //         return;
-    //     }
-    //     if(isPrinting){
-    //         alert("打印中，请勿操作！")
-    //         return;
-    //     }
-    //     isPrinting = true
-    //     Fetch(backCover)
-    // }
+
     document.getElementById('2').onclick = function () {
-        if(isPrinting){
-            alert("打印中，请勿操作！")
+        if (isPrinting) {
+            myAlert("打印中，请勿操作！")
             return;
         }
         location.href = "../index.html"
@@ -171,7 +158,7 @@
             mode: 'cors',
             cache: 'default'
         };
-        var myRequest = new Request(checkedImg, myInit); 
+        var myRequest = new Request(checkedImg, myInit);
         fetch(myRequest, myInit).then(async function (res) {
             return Buffer.from(await res.arrayBuffer());
         }).then(function (response) {
@@ -183,7 +170,7 @@
             var printer = ipp.Printer("http://127.0.0.1:631/printers/EPSON_L805_Series")
 
             var msgx = {
-                "operation-attributes-tag":{
+                "operation-attributes-tag": {
                 }
             };
             var msg = {
@@ -194,56 +181,45 @@
                 },
                 data: response
             };
-
             printer.execute("Print-Job", msg, (err, res) => {
                 console.log(res);
-                msgx['operation-attributes-tag']['job-id']=res['job-attributes-tag']['job-id'];
-		        go();
+                if(err){
+                    myAlert('设备未能正常工作，请检查连接')
+                }
+                
+                msgx['operation-attributes-tag']['job-id'] = res['job-attributes-tag']['job-id'];
+                go();
             })
 
-            function go(){
-                printer.execute("Get-Job-Attributes",msgx,function(err,res){
+            function go() {
+                printer.execute("Get-Job-Attributes", msgx, function (err, res) {
                     console.log(res);
                     let rtNum = res['job-attributes-tag']['job-media-progress']
                     let state = res['job-attributes-tag']['job-state']
                     let domNum = document.getElementsByClassName('state-num')[0]
                     let domTip = document.getElementsByClassName('state-tip')[0]
 
-                    if(rtNum >= 99 || rtNum == undefined) {
-                        if(state == 'completed'){
+                    if (rtNum >= 99 || rtNum == undefined) {
+                        if (state == 'completed') {
                             domNum.innerHTML = '打印完毕！'
                             isPrinting = false
-                            if(!!backCover){
+                            if (!!backCover) {
                                 backCover = ''
                                 domTip.innerHTML = '请翻页'
                             }
-                            else if(!!checkedImg){
+                            else if (!!checkedImg) {
                                 checkedImg = ''
                             }
                             return 'ok';
                         }
-                        else{
+                        else {
                             domNum.innerHTML = '处理中,请稍等..'
-                        } 
+                        }
                     }
-                    else if(!!rtNum){
+                    else if (!!rtNum) {
                         domNum.innerHTML = rtNum + '%'
                     }
-
-                    // let rtString =  res['job-attributes-tag']['job-printer-state-message'] //real time string data
-                    // console.log('string',rtString)
-                    // if(!!rtString){
-                    //     let rtNum =  rtString.split(' ')[3];
-                    //     console.log('num', rtNum)
-
-                    //     let domNum = document.getElementsByClassName('state-num')[0]
-                    //     if(rtNum == '100%' || rtNum == undefined) {
-                    //         domNum.innerHTML = '处理中，请稍等..'
-                    //         return;
-                    //     }
-                    //     domNum.innerHTML = rtNum
-                    // }
-                    setTimeout(go,1000);	
+                    setTimeout(go, 1000);
                 });
             }
         });
@@ -251,23 +227,24 @@
 
 </script>
 <script>
-                    const viewerFront = new Viewer(document.getElementsByName('front')[0], {
-                    toolbar: false,
-                    zoomable: false,
-                    navbar: false,
-                    movable:false,
-                    viewed() {
-                        viewerFront.zoomTo(0);
-                    },
-                });
-                const viewerBack = new Viewer(document.getElementsByName('back')[0], {
-                    toolbar: false,
-                    zoomable: false,
-                    navbar: false,
-                    movable:false,
-                    viewed() {
-                        viewerBack.zoomTo(0);
-                    },
-                });
+    const viewerFront = new Viewer(document.getElementsByName('front')[0], {
+        toolbar: false,
+        zoomable: false,
+        navbar: false,
+        movable: false,
+        viewed() {
+            viewerFront.zoomTo(0);
+        },
+    });
+    const viewerBack = new Viewer(document.getElementsByName('back')[0], {
+        toolbar: false,
+        zoomable: false,
+        navbar: false,
+        movable: false,
+        viewed() {
+            viewerBack.zoomTo(0);
+        },
+    });
 </script>
+
 </html>

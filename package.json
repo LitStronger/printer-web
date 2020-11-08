@@ -8,7 +8,7 @@
   "author": "lyq",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^9.1.1"
+    "electron": "^9.3.3"
   },
   "dependencies": {
     "_boolean@3.0.1@boolean": "^3.0.1",

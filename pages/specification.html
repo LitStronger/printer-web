@@ -3,46 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="../public/css/button.css">
+    <link rel="stylesheet" href="../public/css/layout.css">
+    <script src="../public/js/timer.js"></script>
     <style>
-        body,h1,p{
+        body,
+        h1,
+        p {
             margin: 0;
             padding: 0;
         }
-        .layout-center{
-            background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;
+
+        .layout-center {
+            background-color: white;
+            height: 86vh;
+            width: 90vw;
+            margin: 0vh auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .wrap {
+            width: 50%;
+            height: 50vh;
+            text-align: center;
+            margin: 6vh auto auto auto;
+            padding: 1.5em 2em;
+            overflow: overlay;
         }
     </style>
-    <link rel="stylesheet" href="../public/css/button.css">
-    <link rel="stylesheet" href="../public/css/layout.css">
-
-
 </head>
+
 <body>
     <header class="header"><span>说明书</span></header>
     <div class="layout-center">
-        <!-- <div style="background-color: white;width: 60vw;margin: 0vh auto;text-align: left;">
-            <br>
-            <p  style="text-indent:2em;">说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-            <p  style="text-indent:2em;">说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-            <p  style="text-indent:2em;">说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-        </div> -->
         <div style="width: 100%;position: absolute;">
-            <div style="width: 50%;height:50vh;text-align: center;margin: 6vh auto auto auto;" class="content">
-                <div style="background-color: white;width: 80%;margin: 0vh auto;text-align: left;">
-                    <br>
-                    <p  style="text-indent:2em;">说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-                    <p  style="text-indent:2em;">说明说明说说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-                    <p  style="text-indent:2em;">说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明</p>
-                </div>
+            <div class="content wrap">
+                <br>
+                <p style="text-indent:2em;">
+                    说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
+                </p>
+                <p style="text-indent:2em;">
+                    说明说明说说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
+                </p>
+                <p style="text-indent:2em;">
+                    说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明说明
+                </p>
             </div>
             <br><br>
-            <a style="margin: 0 auto;display: block;width: 20vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
+            <a style="margin: 0 auto;display: block;width: 20vw;" href="../index.html"
+                class="button button-3d button-primary button-rounded">返回</a>
         </div>
         <br>
-        <!-- <a style="" href="../index.html" class="button button-3d button-primary button-rounded">返回</a> -->
-
-    
     </div>
     <footer class="footer"></footer>
 </body>
+
 </html>
