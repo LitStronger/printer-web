@@ -1,33 +1,47 @@
-.header{
+.header {
     background: #28A3F3;
     height: 8vh;
     text-align: center;
     line-height: 8vh;
     color: #FFF;
-    font-weight:bold;font-size: 130%;
+    font-weight: bold;
+    font-size: 130%;
 }
-.footer{
+
+.footer {
     background: #28A3F3;
     height: 6vh;
     text-align: center;
     line-height: 6vh;
     color: #FFF;
-
 }
-.content{
+
+.content {
     background: #ffffff;
     border-radius: 55px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
-.content-img{
+
+.content-img {
     background: #ffffff;
     /* border-radius: 10px; */
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
-body,h1{
+
+body,
+h1 {
     margin: 0;
     padding: 0;
 }
-*{
+
+* {
     /* cursor: none!important; */
+}
+
+html,
+body {
+    /* 禁止选中文字 */
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
 }

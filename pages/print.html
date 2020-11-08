@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Print</title>
@@ -22,40 +23,40 @@
             justify-content: space-around;
             flex-wrap: wrap;
         }
-
+        
         .img-wrap {
             width: 16vw;
             height: 24vw;
         }
-
+        
         img {
             width: 100%;
             height: 100%;
         }
-
+        
         .state-wrap {
             width: 15vw;
             height: 24vw;
             border-radius: 10%;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
         }
-
+        
         .state {
             margin-top: 10%;
         }
-
+        
         .state-num {
             margin-top: 15%;
             font-size: 36px;
             color: #66ccff;
         }
-
+        
         .state-tip {
             margin-top: 15%;
             font-size: 36px;
             color: #66ccff;
         }
-
+        
         .buttons-wrap {
             width: 50%;
             text-align: center;
@@ -65,7 +66,7 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
+        
         .my-button {
             margin: 0 auto;
             width: 15vw;
@@ -78,8 +79,7 @@
     <header class="header"><span> 打 印 </span></header>
     <div class="layout-center">
         <div style="width: 100%;position: absolute;">
-            <div style="width: 60%;height:62vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;"
-                class="content">
+            <div style="width: 60%;height:62vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;" class="content">
                 <div class="img-wrap content-img">
                     <img name='back' src="" alt="">
                 </div>
@@ -110,7 +110,8 @@
     function GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
-        if (r != null) return (r[2]); return null;
+        if (r != null) return (r[2]);
+        return null;
     }
     let checkedImg = GetQueryString('checkedImg')
     let backCover = GetQueryString('backCover')
@@ -123,7 +124,7 @@
     if (!!backCover)
         back.src = backCover
 
-    document.getElementById('0').onclick = function () {
+    document.getElementById('0').onclick = function() {
         // alert('开始打印第1面')
         if (isPrinting) {
             myAlert("打印中，请勿操作！")
@@ -136,14 +137,13 @@
         if (backCover) {
             isPrinting = true
             Fetch(backCover)
-        }
-        else if (checkedImg) {
+        } else if (checkedImg) {
             isPrinting = true
             Fetch(checkedImg)
         }
     }
 
-    document.getElementById('2').onclick = function () {
+    document.getElementById('2').onclick = function() {
         if (isPrinting) {
             myAlert("打印中，请勿操作！")
             return;
@@ -159,9 +159,9 @@
             cache: 'default'
         };
         var myRequest = new Request(checkedImg, myInit);
-        fetch(myRequest, myInit).then(async function (res) {
+        fetch(myRequest, myInit).then(async function(res) {
             return Buffer.from(await res.arrayBuffer());
-        }).then(function (response) {
+        }).then(function(response) {
             console.log(response)
             console.log(typeof response)
 
@@ -170,8 +170,7 @@
             var printer = ipp.Printer("http://127.0.0.1:631/printers/EPSON_L805_Series")
 
             var msgx = {
-                "operation-attributes-tag": {
-                }
+                "operation-attributes-tag": {}
             };
             var msg = {
                 "operation-attributes-tag": {
@@ -183,16 +182,18 @@
             };
             printer.execute("Print-Job", msg, (err, res) => {
                 console.log(res);
-                if(err){
+                if (err) {
                     myAlert('设备未能正常工作，请检查连接')
+                    isPrinting = false
+                    return
                 }
-                
+
                 msgx['operation-attributes-tag']['job-id'] = res['job-attributes-tag']['job-id'];
                 go();
             })
 
             function go() {
-                printer.execute("Get-Job-Attributes", msgx, function (err, res) {
+                printer.execute("Get-Job-Attributes", msgx, function(err, res) {
                     console.log(res);
                     let rtNum = res['job-attributes-tag']['job-media-progress']
                     let state = res['job-attributes-tag']['job-state']
@@ -206,17 +207,14 @@
                             if (!!backCover) {
                                 backCover = ''
                                 domTip.innerHTML = '请翻页'
-                            }
-                            else if (!!checkedImg) {
+                            } else if (!!checkedImg) {
                                 checkedImg = ''
                             }
                             return 'ok';
-                        }
-                        else {
+                        } else {
                             domNum.innerHTML = '处理中,请稍等..'
                         }
-                    }
-                    else if (!!rtNum) {
+                    } else if (!!rtNum) {
                         domNum.innerHTML = rtNum + '%'
                     }
                     setTimeout(go, 1000);
@@ -224,7 +222,6 @@
             }
         });
     }
-
 </script>
 <script>
     const viewerFront = new Viewer(document.getElementsByName('front')[0], {

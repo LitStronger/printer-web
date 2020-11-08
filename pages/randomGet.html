@@ -23,6 +23,17 @@
             flex-wrap: wrap;
         }
 
+        .wrap {
+            width: 55%;
+            height: 65vh;
+            text-align: center;
+            margin: 4vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .img-wrap {
             background: rgb(245, 243, 243);
             width: 16vw;
@@ -50,24 +61,21 @@
 <body>
     <header class="header"><span>随机获取</span></header>
     <div class="layout-center">
-        <div style="width: 100%;position: absolute;">
-            <div style="width: 55%;height:65vh;text-align: center;margin: 4vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;"
-                class="content">
-                <div class="img-wrap content-img">
-                    <img name='front' src="" alt=""></div>
-                <div class="img-wrap content-img">
-                    <img name='back' src="" alt="">
-                </div>
+        <div class="content wrap">
+            <div class="img-wrap content-img">
+                <img name='front' src="" alt=""></div>
+            <div class="img-wrap content-img">
+                <img name='back' src="" alt="">
             </div>
-            <br><br>
-            <div class="buttons-wrap">
-                <a id='0' style="margin: 0 auto;width: 13vw;" href="#"
-                    class="button button-3d button-primary button-rounded">前往打印</a>
-                <a id='1' style="margin: 0 auto;width: 13vw;" href="#"
-                    class="button button-3d button-primary button-rounded">换一批</a>
-                <a id='2' style="margin: 0 auto;width: 13vw;" href="../index.html"
-                    class="button button-3d button-primary button-rounded">返回</a>
-            </div>
+        </div>
+        <br><br>
+        <div class="buttons-wrap">
+            <a id='0' style="margin: 0 auto;width: 13vw;" href="#"
+                class="button button-3d button-primary button-rounded">前往打印</a>
+            <a id='1' style="margin: 0 auto;width: 13vw;" href="#"
+                class="button button-3d button-primary button-rounded">换一批</a>
+            <a id='2' style="margin: 0 auto;width: 13vw;" href="../index.html"
+                class="button button-3d button-primary button-rounded">返回</a>
         </div>
     </div>
     <footer class="footer"></footer>

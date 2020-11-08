@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -7,22 +8,52 @@
     <link rel="stylesheet" href="../public/css/layout.css">
     <script src="../public/js/timer.js"></script>
     <style>
-        .layout-center{
-            background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;
+        .layout-center {
+            background-color: white;
+            height: 86vh;
+            width: 90vw;
+            margin: 0vh auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .wrap {
+            width: 50vw;
+            height: 50vh;
+            text-align: center;
+            margin: 6vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .buttons-wrap {
+            width: 50vw;
+            text-align: center;
+            margin: 0vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
         }
     </style>
 </head>
+
 <body>
     <header class="header"><span>客服电话</span></header>
     <div class="layout-center">
-        <div style="width: 100%;position: absolute;">
-            <div style="width: 50%;height:40vh;text-align: center;line-height: 40vh;margin: 6vh auto auto auto;" class="content">
-                <h1 style="color: #17bbfc;">8888-8888</h1>
-            </div>
-            <br><br>
-            <a style="margin: 0 auto;display: block;width: 20vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
+        <div class="content wrap">
+            <h1 style="color: #17bbfc;">8888-8888</h1>
+        </div>
+        <br><br>
+        <div class="buttons-wrap">
+            <a style="margin: 0 auto;display: block;width: 20vw;" href="../index.html"
+                class="button button-3d button-primary button-rounded">返回</a>
         </div>
     </div>
     <footer class="footer"></footer>
 </body>
+
 </html>

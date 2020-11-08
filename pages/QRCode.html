@@ -1,60 +1,90 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="../public/css/button.css">
     <link rel="stylesheet" href="../public/css/layout.css">
     <script src="../public/js/timer.js"></script>
+    <style>
+        .layout-center {
+            background-color: white;
+            height: 86vh;
+            width: 90vw;
+            margin: 0vh auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
 
+        .wrap {
+            width: 55%;
+            height: 50vh;
+            text-align: center;
+            margin: 8vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .buttons-wrap {
+            width: 50%;
+            text-align: center;
+            margin: 0vh auto auto auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
 </head>
+
 <body>
     <header class="header"><span>提取码</span></header>
-    <div style="background-color: white;height:86vh;width: 90vw;margin: 0vh auto;display: flex;justify-content: space-around;flex-wrap: wrap;">
-        <div style="width: 100%;position: absolute;">
-            <div style="width: 50%;height:40vh;text-align: center;line-height: 40vh;margin: 6vh auto auto auto;" class="content">
-                <h1 id="tip" style="color: #17bbfc;">提示: 请刷二维码!</h1>
-            </div>
-            <br><br>
-        <!-- <button onclick="scan()">重扫</button> -->
-            <div style="width: 50%;text-align: center;margin: 0vh auto auto auto;display: flex;justify-content: space-around;align-items: center;flex-wrap: wrap;">
-
-                <a style="margin: 0 auto;width: 20vw;"onclick="scan()" class="button button-3d button-primary button-rounded">重扫</a>
-                <a style="margin: 0 auto;width: 20vw;" href="../index.html" class="button button-3d button-primary button-rounded">返回</a>
-            </div>
+    <div class="layout-center">
+        <div class="content wrap">
+            <h1 id="tip" style="color: #17bbfc;">提示: 请刷二维码!</h1>
         </div>
-        
+        <div class="buttons-wrap">
+            <a style="margin: 0 auto;width: 20vw;" onclick="scan()"
+                class="button button-3d button-primary button-rounded">重扫</a>
+            <a style="margin: 0 auto;width: 20vw;" href="../index.html"
+                class="button button-3d button-primary button-rounded">返回</a>
+        </div>
     </div>
 
     <footer class="footer"></footer>
     <!--解决脚本标签加载了正确的路径，也找不到jQuery插件的问题-->
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <script src="../public/js/jquery-3.5.1.min.js"></script>
     <script>if (window.module) module = window.module;</script>
 </body>
+
 </html>
 <script>
     document.onkeydown = function () {
-        if(document.onQRcodeInput){
-            let key=window.event&&window.event.key;
+        if (document.onQRcodeInput) {
+            let key = window.event && window.event.key;
             document.onQRcodeInput(key);
         }
     }
 
-    function readQRCode(){
-        return new Promise((resolve, reject) =>{
+    function readQRCode() {
+        return new Promise((resolve, reject) => {
             let code = ""
             document.onQRcodeInput = function (key) {
-                if(code.length > 200){
+                if (code.length > 200) {
                     console.log("reject ")
                     document.onQRcodeInput = null
                     reject(code)
                 }
-                if(key != "Enter"){
-                    if(key.length == 1)
+                if (key != "Enter") {
+                    if (key.length == 1)
                         code += key
                 }
-                else{
+                else {
                     console.log("end ")
                     document.onQRcodeInput = null
                     resolve(code)
@@ -62,37 +92,37 @@
             }
         })
     }
-     
+
 </script>
 <script>
-    function scan(){        
+    function scan() {
         document.getElementById('tip').innerHTML = "提示: 请刷二维码!"
         readQRCode()
-        .then((code) => {
-            setTimeout(()=>{
-                console.log( code)
-                let data = code.split('"')
-                document.getElementById('tip').innerHTML = "提示: 扫码成功, 请稍等..."
+            .then((code) => {
+                setTimeout(() => {
+                    console.log(code)
+                    let data = code.split('"')
+                    document.getElementById('tip').innerHTML = "提示: 扫码成功, 请稍等..."
 
-                // 129.204.241.109:8080/share?code=60b9f17a6de138a46c26c61b10c05765
-                $.get({
-                    url: 'http://129.204.241.109:8080/share',
-                    data: {
-                        code: data[3]
-                    },
-                    success: function(res){
-                        let checkedImg = res.data.raw.checkedImg
-                        let backCover = res.data.raw.backCover
-                        console.log("checkedImg", res.data.raw.checkedImg)
-                        console.log("backCover", res.data.raw.backCover)
-                        window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
-                    },
-                    error: function(err){
-                        console.log(err)
-                    }
-                })
-            },1)
-        });
+                    // 129.204.241.109:8080/share?code=60b9f17a6de138a46c26c61b10c05765
+                    $.get({
+                        url: 'http://129.204.241.109:8080/share',
+                        data: {
+                            code: data[3]
+                        },
+                        success: function (res) {
+                            let checkedImg = res.data.raw.checkedImg
+                            let backCover = res.data.raw.backCover
+                            console.log("checkedImg", res.data.raw.checkedImg)
+                            console.log("backCover", res.data.raw.backCover)
+                            window.location = `./print.html?checkedImg=${checkedImg}&&backCover=${backCover}`
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    })
+                }, 1)
+            });
     }
 
     scan()
