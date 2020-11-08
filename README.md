@@ -6,7 +6,7 @@
 ```shell
 $ git clone https://github.com/FHQGitHub262/lbs-printer-frontend.git
 $ cd lbs-printer-frontend
-$ npm i --save-dev electron
+$ npm install #安装失败的话，尝试更换npm源或者使用cnpm进行安装
 $ npm start
 ```
 
