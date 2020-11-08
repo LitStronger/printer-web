@@ -2,6 +2,8 @@
   "name": "my-electron-app",
   "version": "0.1.0",
   "main": "main.js",
+  "author": "lyq",
+  "license": "ISC",
   "scripts": {
     "start": "electron ."
   },
@@ -10,5 +12,6 @@
   },
   "dependencies": {
     "ipp": "^2.0.1"
-  }
+  },
+  "description": "description"
 }

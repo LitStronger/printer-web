@@ -10,7 +10,16 @@ $ npm install #安装失败的话，尝试更换npm源或者使用cnpm进行安�
 $ npm start
 ```
 
+## 打包
 
+```shell
+$ npx @electron-forge/cli import
+$ npm run make
+```
+
+打包后的文件在out文件夹下
+
+更多详情见[官方文档](https://www.electronjs.org/docs/tutorial/quick-start)
 
 ## 页面
 
