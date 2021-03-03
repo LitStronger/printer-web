@@ -40,4 +40,12 @@ $ npm run dist
 - specification.html 说明页
 - telephone.html 联系方式页
 - ad.html 广告页
+
+首页
 ![image](https://user-images.githubusercontent.com/44419860/109752192-eb15cb00-7c1a-11eb-9750-105c4de941b7.png)
+随机获取
+![image](https://user-images.githubusercontent.com/44419860/109752245-fec13180-7c1a-11eb-9cda-d495cc718b29.png)
+准备打印
+![image](https://user-images.githubusercontent.com/44419860/109752255-04b71280-7c1b-11eb-87d4-3675c80d86a1.png)
+
+
