@@ -13,11 +13,16 @@ $ npm start
 ## 打包
 
 ```shell
-$ npx @electron-forge/cli import
-$ npm run make
+$ npm install electron-builder --save-dev
 ```
 
-打包后的文件在out文件夹下
+配置package.json [具体操作](https://liaoyq.club/2020/09/02/electron%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/)
+
+```shell
+$ npm run dist
+```
+
+打包后的文件在dist文件夹下
 
 更多详情见[官方文档](https://www.electronjs.org/docs/tutorial/quick-start)
 
