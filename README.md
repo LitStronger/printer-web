@@ -4,8 +4,8 @@
 ## 运行
 
 ```shell
-$ git clone https://github.com/FHQGitHub262/lbs-printer-frontend.git
-$ cd lbs-printer-frontend
+$ git clone https://github.com/LitStronger/printer-web.git
+$ cd printer-web
 $ npm install #安装失败的话，尝试更换npm源或者使用cnpm进行安装
 $ npm start
 ```
@@ -40,3 +40,4 @@ $ npm run dist
 - specification.html 说明页
 - telephone.html 联系方式页
 - ad.html 广告页
+![image](https://user-images.githubusercontent.com/44419860/109752192-eb15cb00-7c1a-11eb-9750-105c4de941b7.png)
